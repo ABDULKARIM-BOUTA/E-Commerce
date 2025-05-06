@@ -2,11 +2,12 @@ from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView,
 from products.models import Product
 from products.serializers import ProductSerializer
 from django.views.generic import TemplateView
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 
 # api views
 class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
-    permission_classes = []
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         # product is not listed if out od stock
@@ -14,14 +15,14 @@ class ProductListAPIView(ListAPIView):
 
 class ProductCreateAPIView(CreateAPIView):
     serializer_class = ProductSerializer
-    permission_classes = []
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         return Product.objects.all()
 
 class ProductDetailAPIView(RetrieveAPIView):
     serializer_class = ProductSerializer
-    permission_classes = []
+    permission_classes = [AllowAny]
     lookup_field = 'pk'
 
     def get_queryset(self):
@@ -29,7 +30,7 @@ class ProductDetailAPIView(RetrieveAPIView):
 
 class ProductUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
-    permission_classes = []
+    permission_classes = [IsAdminUser]
     lookup_field = 'pk'
 
     def get_queryset(self):
