@@ -23,20 +23,9 @@ class OrderUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return Order.objects.all()
 
-    def perform_update(self, serializer):
-        # to show total amount after calculating all items quantity and price
-
-        instance = serializer.save()
-        instance.total_amount = 0
-
-        if 'items' in serializer.validated_data:
-            for item in instance.items.all():
-                instance.total_amount = sum(item.quantity * item.price)
-            instance.save()
-
 # Template views
-class OrderListPageView(TemplateView):
-    template_name = 'orders/list.html'
-
-class OrderDetailPageView(TemplateView):
-    template_name = 'orders/detail.html'
+# class OrderListPageView(TemplateView):
+#     template_name = 'orders/list.html'
+#
+# class OrderDetailPageView(TemplateView):
+#     template_name = 'orders/detail.html'
