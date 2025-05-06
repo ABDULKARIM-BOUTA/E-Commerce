@@ -9,7 +9,8 @@ class ProductListAPIView(ListAPIView):
     permission_classes = []
 
     def get_queryset(self):
-        return Product.objects.all()
+        # product is not listed if out od stock
+        return Product.objects.prefetch_related('category').filter(stock_quantity__gt=0)
 
 class ProductCreateAPIView(CreateAPIView):
     serializer_class = ProductSerializer

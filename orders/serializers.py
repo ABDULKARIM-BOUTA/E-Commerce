@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from orders.models import Order, OrderItem
-from products.serializers import ProductSerializer
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class OrderItemSerializer(serializers.ModelSerializer):
     #product = ProductSerializer()    # nested serializer to list the details of a product
@@ -9,11 +11,12 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
-        fields = ['product_name', 'product_price', 'quantity', 'total_price']
+        fields = ['product_name', 'product_price', 'quantity', 'item_total_price']
         read_only_fields = ['total_price']
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)     # nested serializer to list the details of order items
+    user = serializers.StringRelatedField(read_only=True)
     total_amount =serializers.SerializerMethodField()
 
     def get_total_amount(self, obj):
@@ -22,7 +25,7 @@ class OrderSerializer(serializers.ModelSerializer):
         total_amount = 0
 
         for order_item in order_items:
-            total_amount += order_item.total_price
+            total_amount += order_item.item_total_price
 
         return total_amount
 

@@ -10,7 +10,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     description = models.TextField()
     manufacturer = models.CharField(max_length=250)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='category')
     image = models.ImageField(upload_to='products/', blank=True, null=True)
 
     @property

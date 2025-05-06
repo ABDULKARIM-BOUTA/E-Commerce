@@ -25,7 +25,7 @@ class Order(models.Model):
     payment_method = models.CharField(max_length=50, choices=PaymentChoices.choices)
 
     def __str__(self):
-        return f'Order: #{self.order_id} by {self.user}'
+        return f'#Order: {self.order_id} by {self.user}'
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
@@ -33,7 +33,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField()
 
     @property
-    def total_price(self):
+    def item_total_price(self):
         return self.quantity * self.product.price
 
     def __str__(self):

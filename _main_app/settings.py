@@ -20,7 +20,8 @@ INSTALLED_APPS = [
 
     # third party apps
     'rest_framework',
-
+    'silk',
+    
     # first party apps
     'users',
     'categories',
@@ -36,6 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = '_main_app.urls'
