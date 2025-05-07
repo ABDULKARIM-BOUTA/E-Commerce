@@ -3,11 +3,13 @@ from products.models import Product
 from products.serializers import ProductSerializer
 from django.views.generic import TemplateView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
+from  products.filters import ProductFilters
 
 # api views
 class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
+    filterset_class = ProductFilters
 
     def get_queryset(self):
         # product is not listed if out od stock
