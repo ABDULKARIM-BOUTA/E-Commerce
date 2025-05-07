@@ -20,22 +20,20 @@ class ProductCreateAPIView(CreateAPIView):
     def get_queryset(self):
         return Product.objects.all()
 
-class ProductDetailAPIView(RetrieveAPIView):
+class ProductDetailUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [AllowAny]
     lookup_field = 'pk'
 
     def get_queryset(self):
         return Product.objects.all()
 
-class ProductUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
-    serializer_class = ProductSerializer
-    permission_classes = [IsAdminUser]
-    lookup_field = 'pk'
+    def get_permissions(self):
+        method = self.request.method
+        self.permission_classes = [AllowAny]
 
-    def get_queryset(self):
-        return Product.objects.all()
-
+        if method in ['PUT', 'DELETE', 'PATCH']:
+            self.permission_classes = [IsAdminUser]
+        return super().get_permissions()
 
 """Templates views"""
 
@@ -45,8 +43,5 @@ class ProductListPageView(TemplateView):
 class ProductCreatePageView(TemplateView):
     template_name = 'products/create.html'
 
-class ProductDetailPageView(TemplateView):
-    template_name = 'products/detail.html'
-
-class ProductUpdateDeletePageView(TemplateView):
+class ProductDetailUpdateDeletePageView(TemplateView):
     template_name = 'products/update-delete.html'
