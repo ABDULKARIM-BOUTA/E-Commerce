@@ -9,7 +9,10 @@ from  products.filters import ProductFilters
 class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
+    search_fields = ['=name', 'category__name', 'description']
     filterset_class = ProductFilters
+    ordering_fields = ['name', 'price', 'created_at']
+    ordering = ['name']  # default order
 
     def get_queryset(self):
         # product is not listed if out od stock
