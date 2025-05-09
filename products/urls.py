@@ -12,5 +12,5 @@ urlpatterns = [
     # templates urls
     path('list/', views.ProductListPageView.as_view(), name='page-list'),
     path('create/', views.ProductCreatePageView.as_view(), name='page-create'),
-    path('<int:pk>/update-delete/', views.ProductDetailUpdateDeletePageView.as_view(), name='page-update-delete'),
+    path('<int:pk>/detail/', views.ProductDetailUpdateDeletePageView.as_view(), name='page-detail'),
 ]

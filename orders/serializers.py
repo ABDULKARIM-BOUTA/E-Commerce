@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from orders.models import Order, OrderItem
 from django.contrib.auth import get_user_model
+from django.db import transaction
 
 User = get_user_model()
 
@@ -33,13 +34,13 @@ class OrderSerializer(serializers.ModelSerializer):
         read_only_fields = ['order_id', 'created_at', 'total_amount']
 
 
-class OrderCreateSerializer(serializers.ModelSerializer):
+class OrderCreateUpdateSerializer(serializers.ModelSerializer):
     class OrderItemCreateSerializer(serializers.ModelSerializer):
         class Meta:
             model = OrderItem
             fields = ['product', 'quantity']
 
-    items = OrderItemCreateSerializer(many=True)     # nested serializer to list the details of order items
+    items = OrderItemCreateSerializer(many=True, required=False)     # nested serializer to list the details of order items
     user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
@@ -49,8 +50,34 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # create order and each order item because they are related
         order_items_list = validated_data.pop('items')
-        order = Order.objects.create(**validated_data)
 
-        for order_item in order_items_list:
-            OrderItem.objects.create(order=order, **order_item)
+        with transaction.atomic():
+            order = Order.objects.create(**validated_data)
+            for order_item in order_items_list:
+                OrderItem.objects.create(order=order, **order_item)
+
         return order
+
+    def update(self, instance, validated_data):
+        order_items_data = validated_data.pop('items', [])
+
+        with transaction.atomic():
+            # update the Order fields
+            instance = super().update(instance, validated_data)
+
+            # keep track of existing items
+            existing_items = {item.product_id: item for item in instance.items.all()}
+
+            for item_data in order_items_data:
+                product = item_data['product']
+                quantity = item_data['quantity']
+
+                if product.id in existing_items:
+                    # update the existing item
+                    order_item = existing_items[product.id]
+                    order_item.quantity = quantity
+                    order_item.save()
+                else:
+                    # create a new item
+                    OrderItem.objects.create(order=instance, **item_data)
+        return instance

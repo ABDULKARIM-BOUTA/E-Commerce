@@ -1,5 +1,5 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
-from orders.serializers import OrderSerializer, OrderCreateSerializer
+from orders.serializers import OrderSerializer, OrderCreateUpdateSerializer
 from orders.models import Order
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.views.generic import TemplateView
@@ -12,8 +12,8 @@ class AdminOrderListCreateAPIView(ListCreateAPIView):
     def get_serializer_class(self):
         # if it is a create method, it changes the serializer
         method = self.request.method
-        if method == 'POST':
-            self.serializer_class = OrderCreateSerializer
+        if method  == 'POST':
+            self.serializer_class = OrderCreateUpdateSerializer
         return super().get_serializer_class()
 
     def get_queryset(self):
@@ -31,7 +31,7 @@ class UserOrderListCreateAPIView(ListAPIView):
         return Order.objects.prefetch_related('items__product').filter(user=user)
 
 class OrderUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
-    serializer_class = OrderSerializer
+    serializer_class = OrderCreateUpdateSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'order_id'
 
@@ -39,7 +39,9 @@ class OrderUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
         user = self.request.user
         return Order.objects.prefetch_related('items__product').filter(user=user)
 
+
 # Template views
+
 # class OrderListPageView(TemplateView):
 #     template_name = 'orders/list.html'
 #
