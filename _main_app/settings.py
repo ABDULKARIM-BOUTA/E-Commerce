@@ -1,16 +1,19 @@
 from pathlib import Path
 from datetime import timedelta
+import environ
+
+# environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-rttised(xt+qink6ju3y&wmzkiavlk3x7!%b_aje_+3cy15erg'
+SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = True
+DEBUG = env('DEBUG')
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -21,11 +24,12 @@ INSTALLED_APPS = [
 
     # third party apps
     'rest_framework',
-    'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
     'silk',
     'drf_spectacular',
     'django_filters',
+    'djoser',
+    'corsheaders',
 
     # first party apps
     'users',
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -159,5 +164,12 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),       # Longer refresh token lifetime
     "ROTATE_REFRESH_TOKENS": True,                     # Issue new refresh token when used
     "BLACKLIST_AFTER_ROTATION": True,
-    "AUTH_HEADER_TYPES": ("Bearer"),
+    "AUTH_HEADER_TYPES": ("JWT",),
 }
+
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000",]
+#
+# CORS_ALLOWED_ORIGIN_REGEXES
+#
+# CORS_ALLOW_ALL_ORIGINS
