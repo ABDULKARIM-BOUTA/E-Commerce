@@ -3,7 +3,9 @@ from products.models import Product
 from products.serializers import ProductSerializer
 from django.views.generic import TemplateView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
-from  products.filters import ProductFilters
+from products.filters import ProductFilters
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 # api views
 class ProductListAPIView(ListAPIView):
@@ -13,6 +15,10 @@ class ProductListAPIView(ListAPIView):
     filterset_class = ProductFilters
     ordering_fields = ['name', 'price', 'created_at']
     ordering = ['name']  # default order
+
+    @method_decorator(cache_page(60 * 15))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     def get_queryset(self):
         # product is not listed if out od stock
