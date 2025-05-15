@@ -23,7 +23,7 @@ class AdminOrderListCreateAPIView(ListCreateAPIView):
     def get_queryset(self):
         return Order.objects.prefetch_related('items__product').all()
 
-    ############# cach ##################
+    @method_decorator(cache_page(60 * 10, key_prefix='admin_orders_list'))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
