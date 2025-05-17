@@ -32,6 +32,8 @@ class User(AbstractUser):
     birthdate = models.DateField()
     first_name = models.CharField(max_length=25, validators=[validate_names])
     last_name = models.CharField(max_length=25, validators=[validate_names])
+    is_vendor = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
 
     # Since we're using email as the unique identifier, set USERNAME_FIELD to 'email'
     USERNAME_FIELD = 'email'
