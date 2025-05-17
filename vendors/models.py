@@ -8,7 +8,7 @@ class Vendor(models.Model):
     store_description = models.TextField()
     store_name = models.CharField(max_length=100)
     bank_details = models.TextField()
-    store_logo = models.ImageField(blank=True, null=True)
+    store_logo = models.ImageField(upload_to='vendors/', blank=True, null=True)
     created_at = models.DateTimeField()
     contact_details = models.TextField()
     shipping_policy = models.TextField()
