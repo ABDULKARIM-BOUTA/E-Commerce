@@ -20,6 +20,7 @@ class Order(models.Model):
     order_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders') # to reference in user history orders
     created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=StatusChoices.choices, default=StatusChoices.PENDING)
     products = models.ManyToManyField(Product, through='OrderItem', related_name='orders')
     address = models.TextField()
@@ -31,6 +32,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     """used as an intermediate class that connects products and orders while adding extra details like quantity and item total price"""
+
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
