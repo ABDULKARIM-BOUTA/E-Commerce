@@ -13,10 +13,6 @@ class Order(models.Model):
         CANCELLED = 'Cancelled'
         DELIVERED = 'Delivered'
 
-    class PaymentChoices(models.TextChoices):
-        CASH = 'Cash On Delivery'
-        CREDIT_CARD = 'Credit Card On Delivery'
-
     order_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders') # to reference in user history orders
     created_at = models.DateTimeField(auto_now_add=True)
@@ -24,7 +20,7 @@ class Order(models.Model):
     status = models.CharField(max_length=10, choices=StatusChoices.choices, default=StatusChoices.PENDING)
     products = models.ManyToManyField(Product, through='OrderItem', related_name='orders')
     address = models.TextField()
-    payment_method = models.CharField(max_length=50, choices=PaymentChoices.choices)
+#    payment_method = models.CharField(max_length=50, choices=PaymentChoices.choices)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(1)])
 
     def __str__(self):
