@@ -8,8 +8,8 @@ class Contact(models.Model):
 
     name = models.CharField(max_length=100)
     message = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
     email = models.EmailField()
+    created_at = models.DateTimeField(auto_now_add=True)
     # subject = models.CharField(max_length=100)
     # is_resolved = models.BooleanField(default=False)
     # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contact') # used if user is logged in

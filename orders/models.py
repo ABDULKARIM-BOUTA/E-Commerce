@@ -46,6 +46,42 @@ class Coupon(models.Model):
     valid_from = models.DateTimeField()
     valid_to = models.DateTimeField()
 
+class Subscription(models.Model):
+    email = models.EmailField(unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+
+
+
+# class Subscription(models.Model):
+#     STATUS_CHOICES = [
+#         ('active', 'Active'),
+#         ('paused', 'Paused'),
+#         ('cancelled', 'Cancelled'),
+#         ('expired', 'Expired'),
+#     ]
+#
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='subscriptions')
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='subscriptions')  # Subscribed product
+#     quantity = models.PositiveIntegerField(default=1)
+#     start_date = models.DateField(auto_now_add=True)
+#     next_delivery_date = models.DateField()
+#     frequency = models.CharField(
+#         max_length=20,
+#         choices=[('weekly', 'Weekly'), ('biweekly', 'Biweekly'), ('monthly', 'Monthly')],
+#         default='monthly'
+#     )
+#     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
+#     auto_renew = models.BooleanField(default=True)
+#     last_billed = models.DateTimeField(null=True, blank=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#
+#     def __str__(self):
+#         return f"{self.user.email} - {self.product.name} ({self.frequency})"
+#
+#     def is_active(self):
+#         return self.status == 'active'
 
 # class Coupon(models.Model):
 #     code = models.CharField(max_length=50, unique=True)
