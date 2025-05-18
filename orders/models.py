@@ -17,10 +17,10 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders') # to reference in user history orders
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=StatusChoices.choices, default=StatusChoices.PENDING)
+    #status = models.CharField(max_length=10, choices=StatusChoices.choices, default=StatusChoices.PENDING)
     products = models.ManyToManyField(Product, through='OrderItem', related_name='orders')
-    address = models.TextField()
-#    payment_method = models.CharField(max_length=50, choices=PaymentChoices.choices)
+    shipping_address = models.TextField()
+    #payment_method = models.CharField(max_length=50, choices=PaymentChoices.choices)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(1)])
 
     def __str__(self):
@@ -39,3 +39,32 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f' #Order: {self.order.order_id} (Price: {self.product.price} x Quantity: {self.quantity})'
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    discount_value = models.DecimalField(max_digits=10, decimal_places=2)
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+
+
+# class Coupon(models.Model):
+#     code = models.CharField(max_length=50, unique=True)
+#     description = models.TextField(blank=True, null=True)
+#     discount_type = models.CharField(max_length=10, choices=[('fixed', 'Fixed'), ('percent', 'Percent')])
+#     discount_value = models.DecimalField(max_digits=10, decimal_places=2)
+#     active = models.BooleanField(default=True)
+#     valid_from = models.DateTimeField()
+#     valid_to = models.DateTimeField()
+#     usage_limit = models.PositiveIntegerField(blank=True, null=True)  # max number of uses
+#     used_count = models.PositiveIntegerField(default=0)
+#
+#     def is_valid(self):
+#         now = timezone.now()
+#         return (
+#             self.active and
+#             self.valid_from <= now <= self.valid_to and
+#             (self.usage_limit is None or self.used_count < self.usage_limit)
+#         )
+#
+#     def __str__(self):
+#         return self.code
