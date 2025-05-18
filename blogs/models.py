@@ -5,6 +5,8 @@ from django.utils.text import slugify
 User = get_user_model()
 
 class Notification(models.Model):
+    """ to include articles, announcements, or content marketing"""
+
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='wishlists')
     title = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
