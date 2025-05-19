@@ -1,15 +1,16 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
-from products.models import Product
-from products.serializers import ProductSerializer
+from rest_framework import generics
+from products.models import Product, Review
+from products.serializers import ProductSerializer, ReviewSerializer
 from django.views.generic import TemplateView
-from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from products.filters import ProductFilters
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+
 import time
 
 # api views
-class ProductListAPIView(ListAPIView):
+class ProductListView(generics.ListAPIView):
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
     search_fields = ['=name', 'category__name', 'description']
@@ -31,14 +32,14 @@ class ProductListAPIView(ListAPIView):
         # time.sleep(2)
         return Product.objects.prefetch_related('category').filter(stock_quantity__gt=0)
 
-class ProductCreateAPIView(CreateAPIView):
+class ProductCreateView(generics.CreateAPIView):
     serializer_class = ProductSerializer
     permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         return Product.objects.all()
 
-class ProductDetailUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
     lookup_field = 'pk'
 
@@ -52,6 +53,17 @@ class ProductDetailUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
         if method in ['PUT', 'DELETE', 'PATCH']:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
+
+class ReviewListCreateView(generics.ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = []
+
+class ReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = []
+
 
 """Templates views"""
 

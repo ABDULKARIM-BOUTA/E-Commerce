@@ -5,9 +5,9 @@ app_name = 'products'
 
 urlpatterns = [
     # api urls
-    path('api/list/', views.ProductListAPIView.as_view(), name='api-list'),
-    path('api/create/', views.ProductCreateAPIView.as_view(), name='api-create'),
-    path('api/<int:pk>/detail/', views.ProductDetailUpdateDeleteAPIView.as_view(), name='api-detail'),
+    path('api/list/', views.ProductListView.as_view(), name='api-list'),
+    path('api/create/', views.ProductCreateView.as_view(), name='api-create'),
+    path('api/<int:pk>/detail/', views.ProductDetailView.as_view(), name='api-detail'),
 
     # templates urls
     path('list/', views.ProductListPageView.as_view(), name='page-list'),

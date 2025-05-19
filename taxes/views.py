@@ -1,3 +1,14 @@
-from django.shortcuts import render
+from taxes.models import Tax
+from taxes.serializers import TaxSerializer
+from rest_framework import generics
 
-# Create your views here.
+class TaxListCreateView(generics.ListCreateAPIView):
+    serializer_class = TaxSerializer
+    queryset = Tax.objects.all()
+    permission_classes = []
+
+class TaxDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = TaxSerializer
+    queryset = Tax.objects.all()
+    permission_classes = []
+

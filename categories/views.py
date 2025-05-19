@@ -4,21 +4,21 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from django.views.generic import TemplateView
 from rest_framework.permissions import IsAdminUser
 
-class CategoryListCreateAPIView(ListCreateAPIView):
+class CategoryListCreateView(ListCreateAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     permission_classes = [IsAdminUser]
 
-class CategoryUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
+class CategoryDetailView(RetrieveUpdateDestroyAPIView):
     lookup_field = 'pk'
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     permission_classes = [IsAdminUser]
 
-class CategoryListCreatePageView(TemplateView):
-    template_name = 'categories/list-create'
-    permission_classes = [IsAdminUser]
-
-class CategoryUpdateDeletePageView(TemplateView):
-    template_name = 'categories/update-delete.html'
-    permission_classes = [IsAdminUser]
+# class CategoryListCreatePageView(TemplateView):
+#     template_name = 'categories/list-create'
+#     permission_classes = [IsAdminUser]
+#
+# class CategoryUpdateDeletePageView(TemplateView):
+#     template_name = 'categories/update-delete.html'
+#     permission_classes = [IsAdminUser]

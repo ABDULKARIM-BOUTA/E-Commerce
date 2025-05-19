@@ -5,9 +5,9 @@ app_name = 'orders'
 
 urlpatterns = [
     # API Endpoints
-    path('api/list-create', views.AdminOrderListCreateAPIView.as_view(), name='api-list-create'),
-    path('api/user-list', views.UserOrderListCreateAPIView.as_view(), name='api-user-list'),
-    path('api/<str:order_id>/detail', views.OrderUpdateDeleteAPIView.as_view(), name='api-detail'),
+#    path('api/list-create', views.AdminOrderListCreateAPIView.as_view(), name='api-list-create'),
+    path('api/user-list', views.OrderListCreateView.as_view(), name='api-user-list'),
+    path('api/<str:order_id>/detail', views.OrderDetailView.as_view(), name='api-detail'),
 
     # Template Views
     # path('', views.OrderListPageView.as_view(), name='page-list'),
