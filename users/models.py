@@ -21,23 +21,20 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 
-        # You should set `username` to `None` or a blank value for the superuser,
-        # because you are using `email` as the unique identifier.
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, max_length=100)
     password = models.CharField(max_length=250)
-    phone_number = models.IntegerField()
-    birthdate = models.DateField()
     first_name = models.CharField(max_length=25, validators=[validate_names])
     last_name = models.CharField(max_length=25, validators=[validate_names])
     is_vendor = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
+    # phone_number = models.IntegerField()
+    # birthdate = models.DateField()
 
-    # Since we're using email as the unique identifier, set USERNAME_FIELD to 'email'
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number', 'birthdate']
+    REQUIRED_FIELDS = ['first_name', 'last_name']  # 'phone_number', 'birthdate'
 
     objects = CustomUserManager()
 

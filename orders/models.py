@@ -17,11 +17,11 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders') # to reference in user history orders
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-    #status = models.CharField(max_length=10, choices=StatusChoices.choices, default=StatusChoices.PENDING)
     products = models.ManyToManyField(Product, through='OrderItem', related_name='orders')
     shipping_address = models.TextField()
-    #payment_method = models.CharField(max_length=50, choices=PaymentChoices.choices)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(1)])
+    # payment_method = models.CharField(max_length=50, choices=PaymentChoices.choices)
+    # status = models.CharField(max_length=10, choices=StatusChoices.choices, default=StatusChoices.PENDING)
 
     def __str__(self):
         return f'#Order: {self.order_id} by {self.user}'
@@ -29,7 +29,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     """used as an intermediate class that connects products and orders while adding extra details like quantity and item total price"""
 
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 

@@ -4,10 +4,10 @@ from django.utils.text import slugify
 
 User = get_user_model()
 
-class Notification(models.Model):
+class Blog(models.Model):
     """ to include articles, announcements, or content marketing"""
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='wishlists')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs')
     title = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
