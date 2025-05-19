@@ -10,7 +10,7 @@ class Blog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs')
     title = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     content = models.TextField()
     slug = models.SlugField(max_length=200, unique=True)
     # image = models.ImageField(upload_to='notifications/', blank=True, null=True)

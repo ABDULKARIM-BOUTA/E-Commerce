@@ -8,7 +8,7 @@ class CartListCreateView(generics.ListCreateAPIView):
     queryset = Cart.objects.all()
     permission_classes = []
 
-class CartDetail(generics.RetrieveUpdateDestroyAPIView):
+class CartDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartSerializer
     queryset = Cart.objects.all()
     permission_classes = []
@@ -18,7 +18,7 @@ class CrtItemListCreateView(generics.ListCreateAPIView):
     queryset = CartItem.objects.all()
     permission_classes = []
 
-class CartItemDetail(generics.RetrieveUpdateDestroyAPIView):
+class CartItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemSerializer
     queryset = CartItem.objects.all()
     permission_classes = []

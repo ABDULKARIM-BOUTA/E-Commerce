@@ -11,26 +11,27 @@ from orders.tasks import send_order_confirmation_email
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     permission_classes = []
+    queryset = Order.objects.all()
 
-    # cashing with vary on headers so a user only gets their order list  
-    @method_decorator(vary_on_headers("Autherization"))
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
-    def get_serializer_class(self):
-        method = self.request.method
-        if method == 'POST':
-            return OrderCreateUpdateSerializer
-        return super().get_serializer_class()
-    
-    def perform_create(self, serializer):
-        user = self.request.user
-        order = serializer.save(user=user)
-        send_order_confirmation_email.delay(order.order_id, user.email)
-
-    def get_queryset(self):
-        user = self.request.user
-        return Order.objects.prefetch_related('items__product').filter(user=user)
+    # # cashing with vary on headers so a user only gets their order list
+    # @method_decorator(vary_on_headers("Autherization"))
+    # def list(self, request, *args, **kwargs):
+    #     return super().list(request, *args, **kwargs)
+    #
+    # def get_serializer_class(self):
+    #     method = self.request.method
+    #     if method == 'POST':
+    #         return OrderCreateUpdateSerializer
+    #     return super().get_serializer_class()
+    #
+    # def perform_create(self, serializer):
+    #     user = self.request.user
+    #     order = serializer.save(user=user)
+    #     send_order_confirmation_email.delay(order.order_id, user.email)
+    #
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Order.objects.prefetch_related('items__product').filter(user=user)
 
 class OrderDetailView(generics.RetrieveAPIView):
     """retrieve only so after making an order it cant be updated or deleted"""
@@ -52,7 +53,7 @@ class OrderItemListCreateView(generics.ListCreateAPIView):
     queryset = OrderItem.objects.all()
     permission_classes = []
 
-class OrderItemDetail(generics.RetrieveUpdateDestroyAPIView):
+class OrderItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderItemSerializer
     queryset = OrderItem.objects.all()
     permission_classes = []

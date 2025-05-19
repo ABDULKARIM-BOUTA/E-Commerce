@@ -7,7 +7,7 @@ class TaxListCreateView(generics.ListCreateAPIView):
     queryset = Tax.objects.all()
     permission_classes = []
 
-class TaxDetail(generics.RetrieveUpdateDestroyAPIView):
+class TaxDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaxSerializer
     queryset = Tax.objects.all()
     permission_classes = []

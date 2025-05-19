@@ -65,13 +65,13 @@ class ReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = []
 
 
-"""Templates views"""
-
-class ProductListPageView(TemplateView):
-    template_name = 'products/list.html'
-
-class ProductCreatePageView(TemplateView):
-    template_name = 'products/create.html'
-
-class ProductDetailUpdateDeletePageView(TemplateView):
-    template_name = 'products/update-delete.html'
+# """Templates views"""
+#
+# class ProductListPageView(TemplateView):
+#     template_name = 'products/list.html'
+#
+# class ProductCreatePageView(TemplateView):
+#     template_name = 'products/create.html'
+#
+# class ProductDetailUpdateDeletePageView(TemplateView):
+#     template_name = 'products/update-delete.html'

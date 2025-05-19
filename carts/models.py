@@ -9,7 +9,7 @@ User = get_user_model()
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart', null=True, blank=True) # allow non users to create a cart
     created_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     session_id = models.CharField(max_length=100, null=True, blank=True)
     items = models.ManyToManyField(Product, through='CartItem')
 

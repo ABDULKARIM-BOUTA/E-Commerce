@@ -12,7 +12,7 @@ class ContactListView(generics.ListAPIView):
     serializer_class = ContactSerializer
     permission_classes = []
 
-class ContactDetail(generics.RetrieveUpdateDestroyAPIView):
+class ContactDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()
     permission_classes = []

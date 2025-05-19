@@ -4,13 +4,16 @@ from orders import views
 app_name = 'orders'
 
 urlpatterns = [
-    # API Endpoints
-#    path('api/list-create', views.AdminOrderListCreateAPIView.as_view(), name='api-list-create'),
-    path('api/user-list', views.OrderListCreateView.as_view(), name='api-user-list'),
-    path('api/<str:order_id>/detail', views.OrderDetailView.as_view(), name='api-detail'),
+    path('', views.OrderListCreateView.as_view(), name='list-create'),
+    path('<str:order_id>/', views.OrderDetailView.as_view(), name='detail'),
 
-    # Template Views
-    # path('', views.OrderListPageView.as_view(), name='page-list'),
-    # path('<int:pk>/update-delete', views.OrderDetailPageView.as_view(), name='page-detail'),
-#    path('checkout/', views.CheckoutPageView.as_view(), name='checkout'),
+    path('items/', views.OrderItemListCreateView.as_view(), name='item-list-create'),
+    path('items/<int:pk>/', views.OrderItemDetailView.as_view(), name='item-detail'),
+
+    path('coupons/', views.CouponListCreateView.as_view(), name='coupon-list-create'),
+    path('coupons/<int:pk>/', views.CouponDetailView.as_view(), name='coupon-detail'),
+
+    path('subscription/', views.SubscriptionListCreateView.as_view(), name='sub-list-create'),
+    path('subscription/<int:pk>/', views.SubscriptionDetailView.as_view(), name='sub-detail'),
+
 ]
