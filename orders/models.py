@@ -13,11 +13,11 @@ class Order(models.Model):
         CANCELLED = 'Cancelled'
         DELIVERED = 'Delivered'
 
-    order_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders') # to reference in user history orders
+    products = models.ManyToManyField(Product, through='OrderItem', related_name='orders')
+    order_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-    products = models.ManyToManyField(Product, through='OrderItem', related_name='orders')
     shipping_address = models.TextField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(1)])
     # payment_method = models.CharField(max_length=50, choices=PaymentChoices.choices)

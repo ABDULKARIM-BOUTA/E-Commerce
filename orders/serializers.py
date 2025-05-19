@@ -1,7 +1,9 @@
 from rest_framework import serializers
-from orders.models import Order, OrderItem
+from orders.models import Order, OrderItem, Coupon, Subscription
 from django.contrib.auth import get_user_model
 from django.db import transaction
+from users.serializers import UserSerializer
+from products.serializers import ProductSerializer
 
 User = get_user_model()
 
@@ -15,23 +17,38 @@ class OrderItemSerializer(serializers.ModelSerializer):
         read_only_fields = ['item_total_price']
 
 class OrderSerializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True, read_only=True)     # nested serializer to list the details of order items
-    user = serializers.StringRelatedField(read_only=True)
-    total_amount = serializers.SerializerMethodField()
+   # items = OrderItemSerializer(many=True, read_only=True)     # nested serializer to list the details of order items
+   # user = UserSerializer(read_only=True)
+   # total_amount = serializers.SerializerMethodField()
+    #
+    # def get_total_amount(self, obj):
+    #     # to calculate all the order items prices
+    #     order_items = obj.items.all()
+    #     total_amount = 0
+    #
+    #     for order_item in order_items:
+    #         total_amount += order_item.item_total_price
+    #     return total_amount
 
-    def get_total_amount(self, obj):
-        # to calculate all the order items prices
-        order_items = obj.items.all()
-        total_amount = 0
-
-        for order_item in order_items:
-            total_amount += order_item.item_total_price
-        return total_amount
+    user = UserSerializer(read_only=True)
+    products = ProductSerializer(read_only=True)
 
     class Meta:
         model = Order
-        fields = ['order_id', 'status', 'user', 'created_at', 'address', 'payment_method', 'total_amount', 'items']
-        read_only_fields = ['order_id', 'created_at', 'total_amount']
+        fields = ['order_id', 'user', 'products', 'created_at', 'shipping_address'] # 'total_amount' 'status' , 'order_items' , 'payment_method',
+        read_only_fields = ['order_id', 'created_at'] # "total_amount'
+
+class CouponSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coupon
+        fields = ['pk', 'code', 'discount_value', 'valid_from', 'valid_to']
+        read_only_fields = ['pk']
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
+        fields = ['pk', 'email', 'created_at']
+        read_only_fields = ['pk', 'created_at']
 
 
 class OrderCreateUpdateSerializer(serializers.ModelSerializer):
