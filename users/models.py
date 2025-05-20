@@ -25,11 +25,9 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, max_length=100)
-    password = models.CharField(max_length=250)
     first_name = models.CharField(max_length=25, validators=[validate_names])
     last_name = models.CharField(max_length=25, validators=[validate_names])
     is_vendor = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
     # phone_number = models.IntegerField()
     # birthdate = models.DateField()
 
