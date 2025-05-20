@@ -209,4 +209,4 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:8000",]
 # CORS_ALLOW_ALL_ORIGINS
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/build/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

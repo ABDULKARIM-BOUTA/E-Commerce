@@ -1,3 +1,5 @@
 from django.contrib import admin
+from support.models import Contact, FAQ
 
-# Register your models here.
+admin.site.register(Contact)
+admin.site.register(FAQ)
