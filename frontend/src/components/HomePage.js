@@ -19,8 +19,29 @@ const HomePage = () =>{
 
     return (
         <>
+        {/* First row listing categories and flash sales */}
+        <div className="row">
+            <div className="col-md-9">
+                <CategoryList categories={categories}/>
+            </div>  
+            <div className="col-md-9">
+                <FlashSaleProducts products={products}/>
+            </div>  
+        </div>
+        
+        {/* second row listing top selling products */}
+        <div className="row">
+            <TopSellingProducts products={products}/>
+        </div>
+
+        {/* third, fourth, and fifth for products */}
+        {categories.map((category) => (
+            <div key={category.id} className="row">
+                <CategoryProducts category={category} products={products}/>
+            </div>
+            ))}
         </>
-    )
+    );
+};
 
-}
-
+export default HomePage

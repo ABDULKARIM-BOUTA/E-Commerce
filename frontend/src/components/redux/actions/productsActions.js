@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-export const fetchCategories = () => async (dispatch) => {
+export const fetchProducts = () => async (dispatch) => {
     try {
-        const response = await axios.get('/api/categories/');
+        const response = await axios.get('/api/products/');
         dispatch({
-            type: 'SET_PRODUCTS',
+            type: 'SET_CATEGORIES',
             payload: response.data,
         });
     } catch (error){
-        console.error('Error  fetching products:', error);
+        console.error('Error  fetching categories:', error);
     }
 }

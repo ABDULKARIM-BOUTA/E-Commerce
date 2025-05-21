@@ -202,11 +202,23 @@ CELERY_BROKER_URL = "redis://127.0.0.1:6379/1"
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:8000",]
-#
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000",
+                        "http://127.0.0.1:3000"]
+
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+)
+
 # CORS_ALLOWED_ORIGIN_REGEXES
 #
 # CORS_ALLOW_ALL_ORIGINS
+
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

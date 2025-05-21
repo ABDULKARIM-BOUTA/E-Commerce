@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import HomePage from './components/HomePage'
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
   </div>
 </nav>
     {/* Navigation bar ends */}
+    
+    <HomePage/>
 
     </>
   );
