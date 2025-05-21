@@ -1,13 +1,13 @@
 import {legacy_createStore, applyMiddleware, combineReducers } from 'redux';
 import { thunk } from 'redux-thunk';
-import productsReducers from '../reducers/productsReducers' ;
-import categoriesReducers from '../reducers/categoriesReducers';
+import productsReducer from '../reducers/productsReducers' ;
+import categoriesReducer from '../reducers/categoriesReducers';
 
 
 
 const rootReducer = combineReducers({
-    categories: categoriesReducers,
-    products: productsReducers
+    categories: categoriesReducer,
+    products: productsReducer
 });
 
 const store = legacy_createStore(rootReducer, applyMiddleware(thunk));

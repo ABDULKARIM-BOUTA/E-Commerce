@@ -23,9 +23,9 @@ class ProductListView(generics.ListAPIView):
     # def list(self, request, *args, **kwargs):
     #     return super().list(request, *args, **kwargs)
 
-    @method_decorator(cache_page(60 * 10, key_prefix='product_list'))
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(cache_page(60 * 10, key_prefix='product_list'))
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
         # product is not listed if out od stock

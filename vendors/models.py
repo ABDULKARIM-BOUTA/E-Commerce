@@ -9,7 +9,7 @@ class Vendor(models.Model):
     store_name = models.CharField(max_length=100)
     bank_details = models.TextField()
     store_logo = models.ImageField(upload_to='vendors/', blank=True, null=True)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
     contact_details = models.TextField()
     shipping_policy = models.TextField()
     refund_policy = models.TextField()

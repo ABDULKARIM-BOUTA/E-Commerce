@@ -4,8 +4,8 @@ export const fetchProducts = () => async (dispatch) => {
     try {
         const response = await axios.get('http://127.0.0.1:8000/api/products/');
         dispatch({
-            type: 'SET_ PRODUCTS',
-            payload: response.data,
+            type: 'SET_PRODUCTS',
+            payload: response.data.results,
         });
     } catch (error){
         console.error('Error  fetching products:', error);
