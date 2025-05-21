@@ -4,5 +4,5 @@ from configuration import views
 app_name = 'configuration'
 
 urlpatterns = [
-    path('<int:pk>/', views.ConfigurationDetailView.as_view(), name='detail'),
+    path('<int:id>/', views.ConfigurationDetailView.as_view(), name='detail'),
 ]

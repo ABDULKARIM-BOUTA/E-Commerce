@@ -7,10 +7,10 @@ urlpatterns = [
     # api urls
     path('', views.ProductListView.as_view(), name='list'),
     path('create/', views.ProductCreateView.as_view(), name='create'),
-    path('<int:pk>/', views.ProductDetailView.as_view(), name='detail'),
+    path('<int:id>/', views.ProductDetailView.as_view(), name='detail'),
 
     path('reviews/', views.ReviewListCreateView.as_view(), name='review-list-create'),
-    path('reviews/<int:pk>', views.ReviewDetailView.as_view(), name='review-detail'),
+    path('reviews/<int:id>', views.ReviewDetailView.as_view(), name='review-detail'),
 
     # # templates urls
     # path('list/', views.ProductListPageView.as_view(), name='page-list'),

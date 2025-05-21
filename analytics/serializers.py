@@ -7,5 +7,5 @@ class AnalyticsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Analytics
-        fields = ['pk', 'sales', 'traffic', 'popular_products', 'created_at']
-        read_only_fields = ['pk', 'created_at']
+        fields = ['id', 'sales', 'traffic', 'popular_products', 'created_at']
+        read_only_fields = ['id', 'created_at']

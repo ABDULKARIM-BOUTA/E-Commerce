@@ -11,10 +11,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['pk', 'name', 'price', 'stock_quantity', 'description', 'reviews'
+        fields = ['id', 'name', 'price', 'stock_quantity', 'description', 'reviews'
                   'created_at', 'updated_at', 'category', 'vendor', 'image', 'slug']
 
-        read_only_fields = ['pk', 'created_at', 'updated_at', 'slug']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'slug']
 
     def validate_price(self, value):
         if value <= 0:
@@ -27,7 +27,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ['pk', 'user', 'product', 'rating', 'comment', 'created_at', 'updated_at']
-        read_only_fields = ['pk', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'product', 'rating', 'comment', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'created_at', 'updated_at']
 
 

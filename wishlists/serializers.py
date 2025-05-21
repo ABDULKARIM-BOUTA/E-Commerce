@@ -9,5 +9,5 @@ class WishlistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Wishlist
-        fields = ['pk', 'user','product', 'created_at']
-        read_only_fields = ['pk']
+        fields = ['id', 'user','product', 'created_at']
+        read_only_fields = ['id']

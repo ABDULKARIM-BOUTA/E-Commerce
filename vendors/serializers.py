@@ -7,6 +7,6 @@ class VendorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vendor
-        fields = ['pk', 'user', 'store_description', 'store_name', 'bank_details', 'store_logo',
+        fields = ['id', 'user', 'store_description', 'store_name', 'bank_details', 'store_logo',
                   'created_at', 'contact_details', 'shipping_policy', 'refund_policy']
-        read_only_fields = [' created_at', 'pk']
+        read_only_fields = [' created_at', 'id']

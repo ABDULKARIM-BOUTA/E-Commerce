@@ -41,14 +41,14 @@ class OrderSerializer(serializers.ModelSerializer):
 class CouponSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coupon
-        fields = ['pk', 'code', 'discount_value', 'valid_from', 'valid_to']
-        read_only_fields = ['pk']
+        fields = ['id', 'code', 'discount_value', 'valid_from', 'valid_to']
+        read_only_fields = ['id']
 
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
-        fields = ['pk', 'email', 'created_at']
-        read_only_fields = ['pk', 'created_at']
+        fields = ['id', 'email', 'created_at']
+        read_only_fields = ['id', 'created_at']
 
 
 class OrderCreateUpdateSerializer(serializers.ModelSerializer):

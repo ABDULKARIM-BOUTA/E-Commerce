@@ -41,7 +41,7 @@ class ProductCreateView(generics.CreateAPIView):
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
-    lookup_field = 'pk'
+    lookup_field = 'id'
 
     def get_queryset(self):
         return Product.objects.all()

@@ -7,5 +7,5 @@ class BlogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['pk', 'user', 'title', 'content', 'created_at', 'updated_at', 'slug']
-        read_only_fields = ['pk', 'created_at', 'updated_at', 'slug']
+        fields = ['id', 'user', 'title', 'content', 'created_at', 'updated_at', 'slug']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'slug']

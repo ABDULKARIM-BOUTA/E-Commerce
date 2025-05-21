@@ -21,4 +21,4 @@ class UserDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = []
-    lookup_field = 'pk'
+    lookup_field = 'id'

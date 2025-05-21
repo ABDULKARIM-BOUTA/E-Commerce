@@ -7,13 +7,13 @@ from rest_framework.permissions import IsAdminUser
 class CategoryListCreateView(ListCreateAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-    permission_classes = [IsAdminUser]
+    permission_classes = [] #IsAdminUser
 
 class CategoryDetailView(RetrieveUpdateDestroyAPIView):
-    lookup_field = 'pk'
+    lookup_field = 'id'
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-    permission_classes = [IsAdminUser]
+    permission_classes = [] #IsAdminUser
 
 # class CategoryListCreatePageView(TemplateView):
 #     template_name = 'categories/list-create'
